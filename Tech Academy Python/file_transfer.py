@@ -10,10 +10,8 @@ from tkinter import *
 import tkinter.filedialog
 import os
 import shutil
-import datetime as DT
+import datetime
 from datetime import datetime, timedelta
-import time
-import pathlib
 
 class ParentWindow(Frame):
     def __init__(self,master):
@@ -73,12 +71,13 @@ class ParentWindow(Frame):
         source_files = os.listdir(source)
         #runs through each file in the source directory
         for file in source_files:
-            path = pathlib.Path(r"C:\Users\saman\Desktop\CustomerSource\{}".format(file))
-            #checks for files uodated/created in last 24 hrs
-            mtimestamp = path.stat().st_mtime
-            mtime = DT.datetime.fromtimestamp(mtimestamp)
-            mtimeplus24 = mtime + timedelta(hours = 24)
-            if mtimeplus24 > datetime.now():
+            mtime = os.path.getmtime(source)
+            formatmtime = datetime.fromtimestamp(mtime)
+            
+            timeDifference = formatmtime - datetime.now()
+            print(timeDifference)
+            
+            if timeDifference < timedelta(hours=24):
                 #moves file from source to destination
                 shutil.move(source + '/' + file, destination)
                 print(file + ' was successfully transferred.')
