@@ -73,9 +73,7 @@ class ParentWindow(Frame):
         for file in source_files:
             mtime = os.path.getmtime(source)
             formatmtime = datetime.fromtimestamp(mtime)
-            
             timeDifference = formatmtime - datetime.now()
-            print(timeDifference)
             
             if timeDifference < timedelta(hours=24):
                 #moves file from source to destination
