@@ -71,11 +71,13 @@ class ParentWindow(Frame):
         source_files = os.listdir(source)
         #runs through each file in the source directory
         for file in source_files:
-            mtime = os.path.getmtime(source)
+            mtime = os.path.getmtime(source + '/' + file)
             formatmtime = datetime.fromtimestamp(mtime)
             timeDifference = formatmtime - datetime.now()
-            
-            if timeDifference < timedelta(hours=24):
+            timeDiffHr = (timeDifference.total_seconds()/60)/(60*60)
+           
+            #print(timeDiffHr)
+            if timeDiffHr > -1:
                 #moves file from source to destination
                 shutil.move(source + '/' + file, destination)
                 print(file + ' was successfully transferred.')
