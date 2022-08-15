@@ -38,9 +38,9 @@ def balance(request, pk):
         else:
             current_total -= t.amount
             table_contents.update({t: current_total})
-        # passes account, account total balance, and transaction info to the template
-        content = {'account': account, 'table_contents': table_contents, 'balance': current_total}
-        return render(request, 'checkbook/BalanceSheet.html', content)
+    # passes account, account total balance, and transaction info to the template
+    content = {'account': account, 'table_contents': table_contents, 'balance': current_total}
+    return render(request, 'checkbook/BalanceSheet.html', content)
 
 
 # renders Transaction page when requested
