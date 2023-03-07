@@ -13,6 +13,3 @@ A virtual coffee maker. Users can order a virtual coffee drink, pay, and receive
 
 ## Quiz Brain
 Test your smarts in the fun game!
-
-## Snake Game
-(under construction)
