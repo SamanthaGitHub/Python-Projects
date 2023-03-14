@@ -5,18 +5,19 @@ import pyperclip
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
+    # character creation
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
-
+    # password limitations
     nr_letters = random.randint(8, 10)
     nr_numbers = random.randint(2, 4)
     nr_symbols = random.randint(2, 4)
-
+    # randomization of choices within respective categories
     password_letters = [random.choice(letters) for _ in range(nr_letters)]
     password_numbers = [random.choice(numbers) for _ in range(nr_numbers)]
     password_symbols = [random.choice(symbols) for _ in range(nr_symbols)]
-
+    # randomizes the password character positions
     password_list = password_letters + password_numbers + password_symbols
     random.shuffle(password_list)
 
@@ -28,10 +29,11 @@ def generate_password():
 
 
 def save_password():
+    # retrieve values
     website = website_entry.get()
     email = email_entry.get()
     password = pw_entry.get()
-
+    # checks for empty fields, double checks user inputs, writes to the file, and clears the fields
     if len(website) == 0 or len(email) == 0 or len(password) == 0:
         messagebox.showinfo(title="Oops", message="You missed 1 or more fields.")
     else:
@@ -49,7 +51,7 @@ def save_password():
 
 # ---------------------------- UI SETUP ------------------------------- #
 
-
+# window setup
 window = Tk()
 window.title("Password Manager")
 window.config(padx=50, pady=50)
