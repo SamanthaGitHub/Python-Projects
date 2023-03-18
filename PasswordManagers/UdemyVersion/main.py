@@ -35,7 +35,7 @@ def save_password():
     email = email_entry.get()
     password = pw_entry.get()
 
-    # JSON dictionary
+    # json dictionary
     new_data = {website: {
         "email": email,
         "password": password
@@ -45,11 +45,24 @@ def save_password():
     if len(website) == 0 or len(email) == 0 or len(password) == 0:
         messagebox.showinfo(title="Oops", message="You missed 1 or more fields.")
     else:
-    #     is_okay = messagebox.askokcancel(title=website,
-    #                                      message=f"Is this correct?\n\nEmail: {email}\nPassword: {password}")
-        # if is_okay:
-        with open("data.json", "w") as data_file:
-            json.dump(new_data, data_file)
+        try:
+            with open("data.json", "r") as data_file:
+                # reading old data
+                data = json.load(data_file)
+        # file doesn't exist
+        except FileNotFoundError:
+            with open("data.json", "w") as data_file:
+                json.dump(new_data, data_file, indent=4)
+        # file does exist
+        else:
+            # updating old data with new data
+            data.update(new_data)
+
+            with open("data.json", "w") as data_file:
+                # saving updated data
+                json.dump(data, data_file, indent=4)
+
+        finally:
             website_entry.delete(0, END)
             pw_entry.delete(0, END)
 
