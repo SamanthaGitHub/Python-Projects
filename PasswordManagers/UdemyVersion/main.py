@@ -2,6 +2,7 @@ import random
 from tkinter import *
 from tkinter import messagebox
 import pyperclip
+import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
@@ -33,17 +34,24 @@ def save_password():
     website = website_entry.get()
     email = email_entry.get()
     password = pw_entry.get()
+
+    # JSON dictionary
+    new_data = {website: {
+        "email": email,
+        "password": password
+    }}
+
     # checks for empty fields, double checks user inputs, writes to the file, and clears the fields
     if len(website) == 0 or len(email) == 0 or len(password) == 0:
         messagebox.showinfo(title="Oops", message="You missed 1 or more fields.")
     else:
-        is_okay = messagebox.askokcancel(title=website,
-                                         message=f"Is this correct?\n\nEmail: {email}\nPassword: {password}")
-        if is_okay:
-            with open("data.txt", "a") as data_file:
-                data_file.write(f"{website} | {email} | {password}\n")
-                website_entry.delete(0, END)
-                pw_entry.delete(0, END)
+    #     is_okay = messagebox.askokcancel(title=website,
+    #                                      message=f"Is this correct?\n\nEmail: {email}\nPassword: {password}")
+        # if is_okay:
+        with open("data.json", "w") as data_file:
+            json.dump(new_data, data_file)
+            website_entry.delete(0, END)
+            pw_entry.delete(0, END)
 
     # data_file = open("data.txt", "a")
     # data_file.write(f"{website} | {email} | {password}\n")
@@ -58,7 +66,7 @@ window.config(padx=50, pady=50)
 
 canvas = Canvas(height=200, width=200)
 logo_img = PhotoImage(file="logo.png")
-canvas.create_image(100, 100, image=logo_img) #tuple of x coor., y coor., and img
+canvas.create_image(55, 70, image=logo_img) #tuple of x coor., y coor., and img
 canvas.grid(row=0, column=1)
 
 # labels
