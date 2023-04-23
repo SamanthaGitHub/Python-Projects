@@ -19,7 +19,7 @@ def start(nice=0,mean=0,name=""):
 
 def describe_game(name):
     """
-    check if this ia ne game or not.
+    check if this is new game or not.
     if new, gets user's name.
     if not new, thank player for playing
     and create new game
